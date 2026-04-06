@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DoctorWallah - Premium Medical Content Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="layout-wrapper">
+        <header>
+            <div class="container navbar">
+                <a href="index.html" class="logo">Doctor<span>Wallah</span></a>
+                <nav class="nav-links">
+                    <a href="index.html" class="active">Home</a>
+                    <a href="category.html">Categories</a>
+                    <a href="about.html">About Us</a>
+                    <a href="contact.html">Contact</a>
+                </nav>
+                <form class="search-bar" onsubmit="handleSearch(event)">
+                    <input type="text" id="search-input" placeholder="Search diseases, symptoms...">
+                    <button type="submit"><i class="fa-solid fa-search"></i></button>
+                </form>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <section class="hero">
+                <div class="container">
+                    <h1>Expert Health Advice, Right Here</h1>
+                    <p>Read high-quality, doctor-verified articles on diseases, prevention, and living a healthier life.</p>
+                    <a href="#latest" class="btn-primary">Browse Articles</a>
+                </div>
+            </section>
+
+            <section class="category-strip">
+                <div class="container category-list" id="category-list">
+                    <!-- Categories loaded via JS -->
+                </div>
+            </section>
+
+            <section class="container" id="latest">
+                <h2 class="section-title">Latest Medical Articles</h2>
+                
+                <div class="loader-container" id="loader">
+                    <div class="loader"></div>
+                </div>
+
+                <div class="articles-grid" id="articles-grid">
+                    <!-- Articles loaded via JS -->
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="container">
+                <div class="footer-nav">
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <p class="copyright">&copy; 2026 DoctorWallah. All rights reserved. Consult a doctor before making medical decisions.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

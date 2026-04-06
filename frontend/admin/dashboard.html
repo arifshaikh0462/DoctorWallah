@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - DoctorWallah</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Quill Rich Text Editor CSS -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+    <div class="admin-layout">
+        <aside class="admin-sidebar">
+            <h2 style="margin-top: 20px;">Doctor<span>Wallah</span></h2>
+            <ul class="admin-menu">
+                <li><a href="#" class="active" onclick="showSection('dashboard', this)"><i class="fa-solid fa-chart-line"></i> Dashboard</a></li>
+                <li><a href="#" onclick="showSection('articles', this)"><i class="fa-solid fa-file-pen"></i> Manage Articles</a></li>
+                <li><a href="#" onclick="showSection('doctors', this)"><i class="fa-solid fa-user-doctor"></i> Manage Doctors</a></li>
+                <li><a href="#" onclick="showSection('categories', this)"><i class="fa-solid fa-tags"></i> Manage Categories</a></li>
+                <li><a href="#" onclick="logout()"><i class="fa-solid fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </aside>
+
+        <main class="admin-main">
+            <!-- Dashboard Home -->
+            <section id="s-dashboard" class="admin-panel-section active">
+                <div class="admin-header">
+                    <h2>Overview</h2>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3 id="stat-articles">0</h3>
+                        <p>Total Articles</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="stat-doctors">0</h3>
+                        <p>Doctors</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="stat-categories">0</h3>
+                        <p>Categories</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Articles Section -->
+            <section id="s-articles" class="admin-panel-section">
+                <div class="admin-header">
+                    <h2>Articles</h2>
+                    <button class="btn-primary" onclick="showSection('add-article', null)">+ Add New Article</button>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Doctor</th>
+                            <th>Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="articles-table-body">
+                        <!-- Loaded via JS -->
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Add Article Section -->
+            <section id="s-add-article" class="admin-panel-section">
+                <div class="admin-header">
+                    <h2>Add New Article</h2>
+                    <button class="btn-primary" onclick="showSection('articles', document.querySelector('.admin-menu li:nth-child(2) a'))">Back to List</button>
+                </div>
+                <form id="add-article-form" onsubmit="submitArticle(event)">
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input type="text" id="article-title" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Short Description</label>
+                        <textarea id="article-short-desc" rows="2" required></textarea>
+                    </div>
+
+                    <div style="display:flex; gap: 20px;">
+                        <div class="form-group" style="flex:1;">
+                            <label>Doctor</label>
+                            <select id="article-doctor" required></select>
+                        </div>
+                        <div class="form-group" style="flex:1;">
+                            <label>Category</label>
+                            <select id="article-category" required></select>
+                        </div>
+                    </div>
+
+                    <div style="display:flex; gap: 20px;">
+                        <div class="form-group" style="flex:1;">
+                            <label>Featured Image</label>
+                            <input type="file" id="article-image" accept="image/*" required>
+                        </div>
+                        <div class="form-group" style="flex:1;">
+                            <label>Image 2 (Optional)</label>
+                            <input type="file" id="article-image2" accept="image/*">
+                        </div>
+                        <div class="form-group" style="flex:1;">
+                            <label>Image 3 (Optional)</label>
+                            <input type="file" id="article-image3" accept="image/*">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Full Content</label>
+                        <!-- Quill Editor Container -->
+                        <div id="editor-container" style="height: 300px; background: white;"></div>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary">Publish Article</button>
+                </form>
+            </section>
+
+            <!-- Doctors Section -->
+            <section id="s-doctors" class="admin-panel-section">
+                <div class="admin-header">
+                    <h2>Doctors</h2>
+                </div>
+                <div style="display:flex; gap:30px;">
+                    <div style="flex:1;">
+                        <form id="add-doctor-form" onsubmit="submitDoctor(event)" style="background:#f8f9fa; padding:20px; border-radius:8px;">
+                            <h3>Add Doctor</h3>
+                            <div class="form-group mt-2">
+                                <label>Name</label>
+                                <input type="text" id="doc-name" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Specialization</label>
+                                <input type="text" id="doc-spec" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Qualification</label>
+                                <input type="text" id="doc-qual" placeholder="e.g. MBBS, MD Cardiology">
+                            </div>
+                            <div class="form-group">
+                                <label>Hospital Name</label>
+                                <input type="text" id="doc-hosp" placeholder="e.g. Apollo Hospital">
+                            </div>
+                            <div class="form-group">
+                                <label>Booking Link</label>
+                                <input type="text" id="doc-link" placeholder="e.g. https://practo.com/doctor">
+                            </div>
+                            <button type="submit" class="btn-primary">Add Doctor</button>
+                        </form>
+                    </div>
+                    <div style="flex:2;">
+                        <table class="data-table">
+                            <thead>
+                                <tr><th>ID</th><th>Name</th><th>Specialization</th></tr>
+                            </thead>
+                            <tbody id="doctors-table-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Categories Section -->
+            <section id="s-categories" class="admin-panel-section">
+                <div class="admin-header">
+                    <h2>Categories</h2>
+                </div>
+                <div style="display:flex; gap:30px;">
+                    <div style="flex:1;">
+                        <form id="add-category-form" onsubmit="submitCategory(event)" style="background:#f8f9fa; padding:20px; border-radius:8px;">
+                            <h3>Add Category</h3>
+                            <div class="form-group mt-2">
+                                <label>Name</label>
+                                <input type="text" id="cat-name" required>
+                            </div>
+                            <button type="submit" class="btn-primary">Add Category</button>
+                        </form>
+                    </div>
+                    <div style="flex:2;">
+                        <table class="data-table">
+                            <thead>
+                                <tr><th>ID</th><th>Name</th></tr>
+                            </thead>
+                            <tbody id="categories-table-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Quill JS -->
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script src="../js/admin.js"></script>
+    <script>
+        // Init Check Session
+        checkAuth();
+    </script>
+</body>
+</html>

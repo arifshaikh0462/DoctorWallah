@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories - DoctorWallah</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="layout-wrapper">
+        <header>
+            <div class="container navbar">
+                <a href="index.html" class="logo">Doctor<span>Wallah</span></a>
+                <nav class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="category.html" class="active">Categories</a>
+                    <a href="about.html">About Us</a>
+                    <a href="contact.html">Contact</a>
+                </nav>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <section class="category-strip">
+                <div class="container category-list" id="category-list">
+                    <!-- Categories loaded via JS -->
+                </div>
+            </section>
+
+            <section class="container" style="margin-top: 40px;">
+                <h2 class="section-title">Articles in Category</h2>
+                <div class="loader-container" id="loader">
+                    <div class="loader"></div>
+                </div>
+                <div class="articles-grid" id="category-articles-grid">
+                    <p style="text-align:center; width:100%; color:var(--text-light)">Select a category to view articles</p>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="container">
+                <p class="copyright">&copy; 2026 DoctorWallah. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+    <script src="js/main.js"></script>
+</body>
+</html>
