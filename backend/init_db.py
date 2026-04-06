@@ -60,7 +60,7 @@ def init_db():
     from werkzeug.security import generate_password_hash
     cursor.execute(
         "INSERT INTO admins (username, password_hash) VALUES (?, ?)",
-        ("admin", generate_password_hash("admin123"))
+        ("arif", generate_password_hash("a@#%&462"))
     )
 
     # Insert some initial categories
